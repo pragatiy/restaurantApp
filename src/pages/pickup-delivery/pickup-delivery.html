@@ -1,0 +1,98 @@
+<!--
+  Generated template for the PickupDeliveryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!-- <ion-header class="auth-bg">
+
+  <ion-navbar>
+    <ion-title>pickup_delivery</ion-title>
+  </ion-navbar>
+
+</ion-header>
+ -->
+
+<ion-content class="auth-bg">
+  <div class="login-content">
+
+    <!-- Logo -->
+    <div padding text-center>
+      <div class="logo primary-bg">
+        <ion-icon name="md-restaurant" color="light"></ion-icon>
+      </div>
+      <h2 ion-text color="light">
+        Restaurant
+      </h2>
+    </div>
+
+    <!-- Login form -->
+   <!--  <ion-list class="list-form" padding>
+
+      <ion-item>
+        <ion-label stacked>Email</ion-label>
+      
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Password</ion-label>
+      
+      </ion-item>
+
+    </ion-list> -->
+
+    <div class="picksub-bg" >
+     	    <div text-center margin-top style="padding: 20px">
+    		   <span ion-text color="light">
+            <ion-label style="padding: 2px;border: solid; color:red">Reorder your last order?</ion-label>  </span>
+   		    </div>
+    <div>
+	  <button (click)="pickupClick()" ion-button class ="picksub-button" style="margin-left: 20% ; margin-bottom: 15px ;margin-top:15px ;padding: 8px">
+		       PICKUP
+		      </button>
+		       <button (click)="deliveryClick()" ion-button class ="picksub-button" style="padding: 8px; margin-bottom: 15px ;margin-top:15px">
+		       DELIVERY
+		      </button>
+        </div>
+    </div>
+
+ 
+            <div class="picksub-bg" *ngIf="hideMe" >
+     	        <div text-center margin-top>
+    		        <span ion-text color="light" >Order For Now</span>
+   		        </div>
+                    <span><h2>OR</h2></span> 
+ 		     <div>
+			 <ion-list>
+			 <ion-label>Order Date</ion-label> 		
+			  <ion-item>				  	
+			  <ion-datetime display-format="MMM DD, YYYY HH:mm"></ion-datetime>	  
+				   <!--  <ion-select placeholder="Today">
+				      <ion-option value="Today">Today</ion-option>
+				      <ion-option value="Tomorrow">Tomorrow</ion-option>
+				    </ion-select> -->
+			   </ion-item> 
+			
+              <ion-label>Order Time</ion-label> 		
+			  <ion-item>				    	
+				    <ion-select placeholder="Select Time">
+				       <ion-option value="11:00">11:00</ion-option>
+				       <ion-option value="11:15">11:15</ion-option>
+				       <ion-option value="11:30">11:30</ion-option>
+				       <ion-option value="11:45">11:45</ion-option>
+				       <ion-option value="12:00">12:00</ion-option>
+				       <ion-option value="12:15">12:15</ion-option>
+				       <ion-option value="12:30">12:30</ion-option>
+				       <ion-option value="12:45">12:45</ion-option>
+				       <ion-option value="01:00">01:00</ion-option>
+				       <ion-option value="01:15">01:15</ion-option>
+				    </ion-select>
+			   </ion-item>  		     	
+					</ion-list>            
+		     </div>
+    </div>
+
+    <!-- Other links -->
+   
+  </div>
+</ion-content>

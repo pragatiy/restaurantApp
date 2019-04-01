@@ -1,0 +1,108 @@
+<ion-content class="main-view">
+  <div class="overlay" (click)="dismiss()"></div>
+  <div class="modal_content">
+   <div class="picksub-bg" >
+
+               <div text-center margin-top>
+                <button ion-button (click)="orderNow()" >
+           Order For Now
+          </button>
+              </div>
+         <div>
+
+       <ion-list>
+       <ion-label>Order Date</ion-label>    
+        <ion-item> 
+         <ion-label>Today</ion-label>           
+        <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="myDate" (ionChange)="dateSelect()"></ion-datetime>   
+         </ion-item> 
+      
+       <ion-label>Order Time</ion-label>     
+        <ion-item>  
+            <ion-label>Select Time</ion-label>             
+            <ion-select [(ngModel)]="myTime" (ionChange)="timeSelect();">
+              
+              <ion-option value="06:00am">06:00am</ion-option>
+              <ion-option value="06:15am">06:15am</ion-option>
+              <ion-option value="06:30am">06:30am</ion-option>
+              <ion-option value="06:45am">06:45am</ion-option>
+
+              <ion-option value="07:00am">07:00am</ion-option>
+              <ion-option value="07:15am">07:15am</ion-option>
+              <ion-option value="07:30am">07:30am</ion-option>
+              <ion-option value="07:45am">07:45am</ion-option>
+
+              <ion-option value="08:00am">08:00am</ion-option>
+              <ion-option value="08:15am">08:15am</ion-option>
+              <ion-option value="08:30am">08:30am</ion-option>
+              <ion-option value="08:45am">08:45am</ion-option>
+
+              <ion-option value="09:00am">09:00am</ion-option>
+              <ion-option value="09:15am">09:15am</ion-option>
+              <ion-option value="09:30am">09:30am</ion-option>
+              <ion-option value="09:45am">09:45am</ion-option>
+
+              <ion-option value="08:00am">10:00am</ion-option>
+              <ion-option value="08:15am">10:15am</ion-option>
+              <ion-option value="08:30am">10:30am</ion-option>
+              <ion-option value="08:45am">10:45am</ion-option>
+
+              <ion-option value="11:00am">11:00am</ion-option>
+              <ion-option value="11:15am">11:15am</ion-option>
+              <ion-option value="11:30am">11:30am</ion-option>
+              <ion-option value="11:45am">11:45am</ion-option>
+
+               <ion-option value="12:00am">12:00am</ion-option>
+               <ion-option value="12:15am">12:15am</ion-option>
+               <ion-option value="12:30am">12:30am</ion-option>
+               <ion-option value="12:45am">12:45am</ion-option>
+               <ion-option value="01:00am">01:00am</ion-option>
+               <ion-option value="01:15am">01:15am</ion-option>
+
+
+
+              <ion-option value="06:00am">06:00pm</ion-option>
+              <ion-option value="06:15am">06:15pm</ion-option>
+              <ion-option value="06:30am">06:30pm</ion-option>
+              <ion-option value="06:45am">06:45pm</ion-option>
+
+              <ion-option value="07:00am">07:00pm</ion-option>
+              <ion-option value="07:15am">07:15pm</ion-option>
+              <ion-option value="07:30am">07:30pm</ion-option>
+              <ion-option value="07:45am">07:45pm</ion-option>
+              
+              <ion-option value="08:00am">08:00pm</ion-option>
+              <ion-option value="08:15am">08:15pm</ion-option>
+              <ion-option value="08:30am">08:30pm</ion-option>
+              <ion-option value="08:45am">08:45pm</ion-option>
+
+              <ion-option value="09:00am">09:00pm</ion-option>
+              <ion-option value="09:15am">09:15pm</ion-option>
+              <ion-option value="09:30am">09:30pm</ion-option>
+              <ion-option value="09:45am">09:45pm</ion-option>
+
+              <ion-option value="08:00am">10:00pm</ion-option>
+              <ion-option value="08:15am">10:15pm</ion-option>
+              <ion-option value="08:30am">10:30pm</ion-option>
+              <ion-option value="08:45am">10:45pm</ion-option>
+
+              <ion-option value="11:00am">11:00pm</ion-option>
+              <ion-option value="11:15am">11:15pm</ion-option>
+              <ion-option value="11:30am">11:30pm</ion-option>
+              <ion-option value="11:45am">11:45pm</ion-option>
+
+              
+            </ion-select>
+         </ion-item>            
+          </ion-list> 
+
+         </div>
+         <div text-center >
+          <button ion-button (click)="orderLater()" style="margin-top:0px" >
+           Schedule For Later
+          </button>
+
+              </div>
+    </div>
+  </div>
+</ion-content>
