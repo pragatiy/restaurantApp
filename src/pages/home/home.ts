@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController,NavParams } from 'ionic-angular';
 import { CategoryPage } from "../category/category";
 import { CategoriesPage } from "../categories/categories";
 import { StoreProvider } from "../../providers/store/store";
 import { CategoryProvider } from "../../providers/category/category";
-
+import {  ModalController, ModalOptions } from "ionic-angular";
 /*
  Generated class for the LoginPage page.
 
@@ -26,11 +26,11 @@ export class HomePage {
 
   // list of restaurant
   stores: any;
-
-  constructor(public nav: NavController, public storeProvider: StoreProvider, public categoryProvider: CategoryProvider) {
+  orderType:any;
+  constructor(public nav: NavController, public navParam: NavParams, public modalCtrl: ModalController, public storeProvider: StoreProvider, public categoryProvider: CategoryProvider) {
     storeProvider.all().subscribe(snapshot => {
       this.stores = snapshot;
-
+      this.orderType=  this.navParam.get('orderType'); 
       // convert children categories to array
       this.stores.forEach((value, key) => {
         // TODO limit by 6 cats
@@ -50,5 +50,16 @@ export class HomePage {
   // view list categories of store
   viewRestaurant(store) {
     this.nav.push(CategoriesPage, {store: store});
+  }
+
+  changeEditBtn(){
+
+  const modalOptions: ModalOptions = {
+    cssClass: "signInModal"
+  };
+  const modal = this.modalCtrl.create("PopupPage", {}, modalOptions);
+  modal.present();
+
+
   }
 }

@@ -93,7 +93,7 @@ var AppModule = /** @class */ (function () {
                 IonicStorageModule.forRoot(),
                 AgmCoreModule.forRoot({
                     apiKey: 'AIzaSyARH-B-7AusMYW9bm3wsVshp1j10pGhEyw',
-                    libraries: ["geometry", "places"]
+                    libraries: ["places", "geometry"]
                 })
             ],
             bootstrap: [IonicApp],

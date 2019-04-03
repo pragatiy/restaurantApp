@@ -11,6 +11,7 @@ import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
 import { MapsAPILoader } from '@agm/core';
 import { HomePage } from '../home/home';
+import { StoreProvider } from "../../providers/store/store";
 /**
  * Generated class for the PopupLocationPage page.
  *
@@ -18,14 +19,29 @@ import { HomePage } from '../home/home';
  * Ionic pages and navigation.
  */
 var PopupLocationPage = /** @class */ (function () {
-    function PopupLocationPage(navCtrl, alertCtrl, viewCtrl, mapsAPILoader, ngZone, navParams) {
+    function PopupLocationPage(navCtrl, alertCtrl, storeProvider, viewCtrl, mapsAPILoader, ngZone, navParams) {
         var _this = this;
         this.navCtrl = navCtrl;
         this.alertCtrl = alertCtrl;
+        this.storeProvider = storeProvider;
         this.viewCtrl = viewCtrl;
         this.mapsAPILoader = mapsAPILoader;
         this.ngZone = ngZone;
         this.navParams = navParams;
+        storeProvider.all().subscribe(function (snapshot) {
+            console.log("store data ", snapshot);
+            _this.stores = snapshot;
+            var geocoder = new google.maps.Geocoder();
+            var address = _this.stores.address;
+            geocoder.geocode({ 'address': address }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    // do something with the geocoded result
+                    //
+                    console.log(results[0].geometry.location.lat);
+                    results[0].geometry.location;
+                }
+            });
+        });
         this.mapsAPILoader.load().then(function () {
             var autocomplete = new google.maps.places.Autocomplete(_this.searchElement.nativeElement, {
                 types: ["address"]
@@ -33,28 +49,34 @@ var PopupLocationPage = /** @class */ (function () {
             console.log("autocomplete", autocomplete);
             autocomplete.addListener("place_changed", function () {
                 _this.ngZone.run(function () {
-                    //get the place result
-                    debugger;
+                    //get the place result        
                     var place = autocomplete.getPlace();
                     var arra = autocomplete.getPlace();
                     console.log("place", place);
-                    var currentUserAddress = place.formatted_address;
-                    console.log("currentUserAddress", currentUserAddress);
-                    if (currentUserAddress) {
+                    debugger;
+                    //  var currentUserAddress = place.formatted_address;
+                    if (arra.length) {
                         //this.geoCode(currentUserAddress);
+                        var lat = place[0].geometry.location.lat();
+                        var lng = place[0].geometry.location.lng();
+                        console.log("lat", lat);
+                        console.log("lng", lng);
+                        _this.distance(lat, lng, "28.598070", "77.342870", "M");
+                    }
+                    else if (place.geometry) {
+                        var lat = place.geometry.location.lat();
+                        var lng = place.geometry.location.lng();
+                        console.log("lat", lat);
+                        console.log("lng", lng);
+                        _this.distance(lat, lng, "28.598070", "77.342870", "M");
+                    }
+                    else {
                         var alert_1 = _this.alertCtrl.create({
                             title: "",
                             subTitle: "Please re-enter the location!",
                             buttons: ["OK"]
                         });
                         alert_1.present();
-                    }
-                    else {
-                        var lat = place.geometry.location.lat();
-                        var lng = place.geometry.location.lng();
-                        console.log("lat", lat);
-                        console.log("lng", lng);
-                        _this.distance(lat, lng, "28.598070", "77.342870", "M");
                     }
                     // var geocoder = new google.maps.Geocoder();
                     // geocoder.geocode( { 'address': currentUserAddress}, function(results, status) {
@@ -87,6 +109,8 @@ var PopupLocationPage = /** @class */ (function () {
             });
         });
     }
+    PopupLocationPage.prototype.DisplayLOcation = function () {
+    };
     PopupLocationPage.prototype.geoCode = function (address) {
         var _this = this;
         debugger;
@@ -97,10 +121,10 @@ var PopupLocationPage = /** @class */ (function () {
             if (results[0].geometry) {
                 _this.latitude = results[0].geometry.location.lat();
                 _this.longitude = results[0].geometry.location.lng();
-                alert("lat: " + _this.latitude + ", long: " + _this.longitude);
+                //alert("lat: " + this.latitude + ", long: " + this.longitude);
             }
             else {
-                alert("lat: " + address + ", long: " + results + " hello" + status);
+                // alert("lat: " + address + ", long: " + results + " hello" + status);
             }
         });
     };
@@ -108,7 +132,6 @@ var PopupLocationPage = /** @class */ (function () {
         console.log('ionViewDidLoad PopupLocationPage');
     };
     PopupLocationPage.prototype.distance = function (lat1, lon1, lat2, lon2, unit) {
-        debugger;
         if ((lat1 == lat2) && (lon1 == lon2)) {
             return 0;
         }
@@ -141,7 +164,7 @@ var PopupLocationPage = /** @class */ (function () {
                 alert_2.present();
             }
             else {
-                this.nav.setRoot(HomePage);
+                this.navCtrl.setRoot(HomePage, { 'orderType': 'Delivery' });
             }
         }
     };
@@ -161,7 +184,7 @@ var PopupLocationPage = /** @class */ (function () {
                 nav: new ViewChild('content')
             }
         }),
-        __metadata("design:paramtypes", [NavController, AlertController, ViewController, MapsAPILoader, NgZone, NavParams])
+        __metadata("design:paramtypes", [NavController, AlertController, StoreProvider, ViewController, MapsAPILoader, NgZone, NavParams])
     ], PopupLocationPage);
     return PopupLocationPage;
 }());

@@ -9,9 +9,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component, } from '@angular/core';
 import { AlertController } from 'ionic-angular';
+import { ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, } from 'ionic-angular';
 import { ViewController } from 'ionic-angular';
 import { ModalController } from "ionic-angular";
+import { HomePage } from '../home/home';
 var PopupPage = /** @class */ (function () {
     function PopupPage(navCtrl, modalCtrl, viewCtrl, navParams, alertCtrl) {
         this.navCtrl = navCtrl;
@@ -19,6 +21,7 @@ var PopupPage = /** @class */ (function () {
         this.viewCtrl = viewCtrl;
         this.navParams = navParams;
         this.alertCtrl = alertCtrl;
+        this.timeInterval = ['6:00am', '6:15am', '6:30am'];
     }
     PopupPage.prototype.validateUser = function () {
         return this.email == "developerslearnit@gmail.com" && this.password == "password";
@@ -38,21 +41,25 @@ var PopupPage = /** @class */ (function () {
         //alert(this.myDate);
     };
     PopupPage.prototype.orderNow = function () {
-        if (this.myDate && this.myTime) {
-            var modalOptions = {
-                cssClass: "signInModal"
-            };
-            var modal = this.modalCtrl.create("PopupLocationPage", {}, modalOptions);
-            modal.present();
-        }
-        else {
-            var alert_1 = this.alertCtrl.create({
-                title: "",
-                subTitle: "Please enter date and time!",
-                buttons: ["OK"]
-            });
-            alert_1.present();
-        }
+        //   if (this.myDate && this.myTime) {
+        var modalOptions = {
+            cssClass: "signInModal"
+        };
+        var modal = this.modalCtrl.create("PopupLocationPage", {}, modalOptions);
+        modal.present();
+        /*  }else{
+               let alert = this.alertCtrl.create({
+                  title: "",
+                  subTitle: "Please enter date and time!",
+                  buttons: ["OK"]
+                });
+                alert.present();
+      }*/
+    };
+    PopupPage.prototype.orderLater = function () {
+        //this.navCtrl.setRoot(LoginPage,{'page':'popupPage'});
+        // this.navCtrl.setRoot(LoginPage);
+        this.navCtrl.setRoot(HomePage);
     };
     PopupPage.prototype.showAlert = function (err) {
         var alert = this.alertCtrl.create({
@@ -70,6 +77,9 @@ var PopupPage = /** @class */ (function () {
         Component({
             selector: 'page-popup',
             templateUrl: 'popup.html',
+            queries: {
+                nav: new ViewChild('content')
+            }
         }),
         __metadata("design:paramtypes", [NavController, ModalController, ViewController, NavParams, AlertController])
     ], PopupPage);

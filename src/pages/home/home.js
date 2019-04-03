@@ -8,11 +8,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { CategoryPage } from "../category/category";
 import { CategoriesPage } from "../categories/categories";
 import { StoreProvider } from "../../providers/store/store";
 import { CategoryProvider } from "../../providers/category/category";
+import { ModalController } from "ionic-angular";
 /*
  Generated class for the LoginPage page.
 
@@ -20,9 +21,11 @@ import { CategoryProvider } from "../../providers/category/category";
  Ionic pages and navigation.
  */
 var HomePage = /** @class */ (function () {
-    function HomePage(nav, storeProvider, categoryProvider) {
+    function HomePage(nav, navParam, modalCtrl, storeProvider, categoryProvider) {
         var _this = this;
         this.nav = nav;
+        this.navParam = navParam;
+        this.modalCtrl = modalCtrl;
         this.storeProvider = storeProvider;
         this.categoryProvider = categoryProvider;
         // slides for slider
@@ -33,6 +36,7 @@ var HomePage = /** @class */ (function () {
         ];
         storeProvider.all().subscribe(function (snapshot) {
             _this.stores = snapshot;
+            _this.orderType = _this.navParam.get('orderType');
             // convert children categories to array
             _this.stores.forEach(function (value, key) {
                 // TODO limit by 6 cats
@@ -51,12 +55,19 @@ var HomePage = /** @class */ (function () {
     HomePage.prototype.viewRestaurant = function (store) {
         this.nav.push(CategoriesPage, { store: store });
     };
+    HomePage.prototype.changeEditBtn = function () {
+        var modalOptions = {
+            cssClass: "signInModal"
+        };
+        var modal = this.modalCtrl.create("PopupPage", {}, modalOptions);
+        modal.present();
+    };
     HomePage = __decorate([
         Component({
             selector: 'page-home',
             templateUrl: 'home.html'
         }),
-        __metadata("design:paramtypes", [NavController, StoreProvider, CategoryProvider])
+        __metadata("design:paramtypes", [NavController, NavParams, ModalController, StoreProvider, CategoryProvider])
     ], HomePage);
     return HomePage;
 }());

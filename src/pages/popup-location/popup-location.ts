@@ -4,6 +4,7 @@ import {} from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
 import { FormControl } from '@angular/forms';
 import { HomePage } from '../home/home';
+import { StoreProvider } from "../../providers/store/store";
 /**
  * Generated class for the PopupLocationPage page.
  *
@@ -25,8 +26,29 @@ export class PopupLocationPage {
  latitude:any;
  longitude:any;
  nav: any;
-  constructor(public navCtrl: NavController,private alertCtrl: AlertController,public viewCtrl : ViewController,private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, public navParams: NavParams) {
+ stores:any;
+  constructor(public navCtrl: NavController,private alertCtrl: AlertController,public storeProvider: StoreProvider,public viewCtrl : ViewController,private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, public navParams: NavParams) {
   
+ storeProvider.all().subscribe(snapshot => {
+ 	console.log("store data ",snapshot);
+      this.stores = snapshot;    
+
+      let geocoder = new google.maps.Geocoder();
+			let address =this.stores.address;
+			geocoder.geocode( { 'address': address}, function(results, status) {
+				  console.log(results,status);
+			  if (status == google.maps.GeocoderStatus.OK)
+			  {
+			      // do something with the geocoded result
+			      //
+			      console.log(results[0].geometry.location.lat);
+			      console.log(results[0].geometry.location);
+			  }
+			});   
+    });
+
+
+
  this.mapsAPILoader.load().then(() => {
       let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement, {
         types: ["address"]
@@ -158,7 +180,8 @@ geoCode(address:any) {
 			            });
 			            alert.present();
 		  }else{
-                       this.navCtrl.setRoot(HomePage);
+		  	
+                       this.navCtrl.setRoot(HomePage,{'orderType':'Delivery'});
 		  }
 
 	}
@@ -166,7 +189,8 @@ geoCode(address:any) {
 
 }
 
-	dismiss(){
+ 
+dismiss(){
 		this.viewCtrl.dismiss();
 		}
 }

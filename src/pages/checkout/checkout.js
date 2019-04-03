@@ -72,7 +72,7 @@ var CheckoutPage = /** @class */ (function () {
         // show alert
         var alert = this.alertController.create({
             title: 'Info',
-            subTitle: 'Your order has been sent.',
+            subTitle: 'You can pick up by the change schedule / edit store',
             buttons: [
                 {
                     text: 'OK',

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import {  ModalController, ModalOptions } from "ionic-angular";
+import { HomePage } from '../home/home';
+
 /**
  * Generated class for the PickupDeliveryPage page.
  *
@@ -24,23 +26,32 @@ hideMe:boolean=false;
   }
 
   pickupClick(){
-    console.log("pick");
-    this.showPopupModal();
+       console.log("pick");
+      //this.showPopupModal();
+      let date: string = new Date().toISOString();
+      this.navCtrl.setRoot(HomePage,{'orderType':'PickUp'}); 
+   
   }
 
   deliveryClick(){
      console.log("deliveryClick");
-     this.showPopupModal();
+     //this.showPopupModal();
+       const modalOptions: ModalOptions = {
+        cssClass: "signInModal"
+      };
+      const modal = this.modalCtrl.create("PopupLocationPage", {}, modalOptions);
+      modal.present();    
   }
 
-showPopupModal() {
+
+/*showPopupModal() {
   const modalOptions: ModalOptions = {
     cssClass: "signInModal"
   };
   const modal = this.modalCtrl.create("PopupPage", {}, modalOptions);
   modal.present();
 }
-
+*/
 
 
   presentPrompt() {

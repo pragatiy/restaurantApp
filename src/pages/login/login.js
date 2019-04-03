@@ -8,10 +8,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, NavParams } from 'ionic-angular';
 import { RegisterPage } from "../register/register";
 import { UserProvider } from "../../providers/user/user";
 import { LoadingProvider } from "../../providers/loading/loading";
+import { HomePage } from '../home/home';
 /*
  Generated class for the LoginPage page.
 
@@ -19,11 +20,13 @@ import { LoadingProvider } from "../../providers/loading/loading";
  Ionic pages and navigation.
  */
 var LoginPage = /** @class */ (function () {
-    function LoginPage(nav, userProvider, alertCtrl, loadingProvider) {
+    function LoginPage(nav, navParams, userProvider, alertCtrl, loadingProvider) {
         this.nav = nav;
+        this.navParams = navParams;
         this.userProvider = userProvider;
         this.alertCtrl = alertCtrl;
         this.loadingProvider = loadingProvider;
+        this.pageName = navParams.get('page');
     }
     // go to register page
     LoginPage.prototype.register = function () {
@@ -42,6 +45,9 @@ var LoginPage = /** @class */ (function () {
         this.loadingProvider.present('Please wait...');
         this.userProvider.login(this.email, this.password).subscribe(function (authData) {
             _this.loadingProvider.dismiss();
+            if (_this.pageName == 'popupPage') {
+                _this.nav.setRoot(HomePage);
+            }
             // this.nav.setRoot(HomePage);
         }, function (error) {
             _this.loadingProvider.dismiss();
@@ -65,7 +71,7 @@ var LoginPage = /** @class */ (function () {
             selector: 'page-login',
             templateUrl: 'login.html'
         }),
-        __metadata("design:paramtypes", [NavController, UserProvider, AlertController,
+        __metadata("design:paramtypes", [NavController, NavParams, UserProvider, AlertController,
             LoadingProvider])
     ], LoginPage);
     return LoginPage;

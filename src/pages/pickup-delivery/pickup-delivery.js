@@ -11,6 +11,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { ModalController } from "ionic-angular";
+import { HomePage } from '../home/home';
 /**
  * Generated class for the PickupDeliveryPage page.
  *
@@ -30,18 +31,27 @@ var PickupDeliveryPage = /** @class */ (function () {
     };
     PickupDeliveryPage.prototype.pickupClick = function () {
         console.log("pick");
-        this.showPopupModal();
+        //this.showPopupModal();
+        var date = new Date().toISOString();
+        this.navCtrl.setRoot(HomePage, { 'orderType': 'PickUp' });
     };
     PickupDeliveryPage.prototype.deliveryClick = function () {
         console.log("deliveryClick");
-    };
-    PickupDeliveryPage.prototype.showPopupModal = function () {
+        //this.showPopupModal();
         var modalOptions = {
             cssClass: "signInModal"
         };
-        var modal = this.modalCtrl.create("PopupPage", {}, modalOptions);
+        var modal = this.modalCtrl.create("PopupLocationPage", {}, modalOptions);
         modal.present();
     };
+    /*showPopupModal() {
+      const modalOptions: ModalOptions = {
+        cssClass: "signInModal"
+      };
+      const modal = this.modalCtrl.create("PopupPage", {}, modalOptions);
+      modal.present();
+    }
+    */
     PickupDeliveryPage.prototype.presentPrompt = function () {
         var alert = this.alertCtrl.create({
             //  title: 'Order for now',

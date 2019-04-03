@@ -10,10 +10,11 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title style="margin-left: -100px;">Home</ion-title>
+     <ion-title style="margin-left: 8px;">{{orderType}}</ion-title>
     <ion-buttons end>
-      <button ion-button>
-        <ion-icon name="md-more"></ion-icon>
+      <button ion-button  (click)="changeEditBtn()">Change/Edit
+       <!--  <ion-icon name="md-more"></ion-icon> -->
       </button>
     </ion-buttons>
   </ion-navbar>
